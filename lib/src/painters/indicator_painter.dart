@@ -14,6 +14,9 @@ abstract class BasicIndicatorPainter extends IndicatorPainter {
   /// Inactive dot paint or base paint in one-color effects.
   final Paint dotPaint;
 
+  /// Passed dots paint
+  final Paint? passedDotPaint;
+
   /// The Radius of all dots
   final Radius dotRadius;
 
@@ -27,10 +30,20 @@ abstract class BasicIndicatorPainter extends IndicatorPainter {
           ..color = _effect.dotColor
           ..style = _effect.paintStyle
           ..strokeWidth = _effect.strokeWidth,
+        passedDotPaint = _effect.passedDotColor == null ? null : Paint()
+          ?..color = _effect.passedDotColor!
+          ..style = _effect.paintStyle
+          ..strokeWidth = _effect.strokeWidth,
         super(offset);
 
   /// The distance between dot lefts
-  double get distance => _effect.dotWidth + _effect.spacing;
+  double distance(Size size) => calcDotWidth(size) + _effect.spacing;
+
+  /// Calculate dot width from size
+  double calcDotWidth(Size size) {
+    if (!_effect.expand) return _effect.dotWidth;
+    return (size.width - (_effect.spacing * (count - 1))) / count;
+  }
 
   /// Paints [count] number of dots with no animation
   ///
@@ -39,18 +52,26 @@ abstract class BasicIndicatorPainter extends IndicatorPainter {
   void paintStillDots(Canvas canvas, Size size) {
     for (var i = 0; i < count; i++) {
       final rect = buildStillDot(i, size);
+      // check if the current dot is passed
+      if (passedDotPaint != null) {
+        if (i < offset) {
+          canvas.drawRRect(rect, passedDotPaint!);
+          continue;
+        }
+      }
+
       canvas.drawRRect(rect, dotPaint);
     }
   }
 
   /// Builds a single still dot
   RRect buildStillDot(int i, Size size) {
-    final xPos = (i * distance);
+    final xPos = (i * distance(size));
     final yPos = size.height / 2;
     final bounds = Rect.fromLTRB(
       xPos,
       yPos - _effect.dotHeight / 2,
-      xPos + _effect.dotWidth,
+      xPos + calcDotWidth(size),
       yPos + _effect.dotHeight / 2,
     );
     var rect = RRect.fromRectAndRadius(bounds, dotRadius);

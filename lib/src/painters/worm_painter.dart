@@ -34,7 +34,7 @@ class WormPainter extends BasicIndicatorPainter {
 
       final endDot = calcPortalTravel(
         size,
-        ((count - 1) * distance) + (effect.dotWidth / 2),
+        ((count - 1) * distance(size)) + (effect.dotWidth / 2),
         1 - dotOffset,
       );
       canvas.drawRRect(endDot, activeDotPaint);
@@ -42,10 +42,10 @@ class WormPainter extends BasicIndicatorPainter {
     }
 
     final wormOffset = dotOffset * 2;
-    final xPos = (offset.floor() * distance);
+    final xPos = (offset.floor() * distance(size));
     final yPos = size.height / 2;
     var head = xPos;
-    var tail = xPos + effect.dotWidth + (wormOffset * distance);
+    var tail = xPos + effect.dotWidth + (wormOffset * distance(size));
     var halfHeight = effect.dotHeight / 2;
     final thinWorm =
         effect.type == WormType.thin || effect.type == WormType.thinUnderground;
@@ -54,8 +54,8 @@ class WormPainter extends BasicIndicatorPainter {
         : effect.dotHeight;
 
     if (wormOffset > 1) {
-      tail = xPos + effect.dotWidth + (1 * distance);
-      head = xPos + distance * (wormOffset - 1);
+      tail = xPos + effect.dotWidth + (1 * distance(size));
+      head = xPos + distance(size) * (wormOffset - 1);
       if (thinWorm) {
         dotHeight = halfHeight + (halfHeight * (wormOffset - 1));
       }

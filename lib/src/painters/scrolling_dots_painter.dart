@@ -45,8 +45,8 @@ class ScrollingDotsPainter extends BasicIndicatorPainter {
       ..style = effect.paintStyle;
 
     final drawingAnchor = (inPreScrollRange || inAfterScrollRange)
-        ? -(firstVisibleDot * distance)
-        : -((offset - switchPoint) * distance);
+        ? -(firstVisibleDot * distance(size))
+        : -((offset - switchPoint) * distance(size));
 
     const smallDotScale = 0.66;
     final activeScale = effect.activeDotScale - 1.0;
@@ -107,7 +107,8 @@ class ScrollingDotsPainter extends BasicIndicatorPainter {
       final scaledWidth = (effect.dotWidth * scale);
       final scaledHeight = effect.dotHeight * scale;
       final yPos = size.height / 2;
-      final xPos = effect.dotWidth / 2 + drawingAnchor + (index * distance);
+      final xPos =
+          effect.dotWidth / 2 + drawingAnchor + (index * distance(size));
 
       final rRect = RRect.fromLTRBR(
         xPos - scaledWidth / 2 + effect.spacing / 2,

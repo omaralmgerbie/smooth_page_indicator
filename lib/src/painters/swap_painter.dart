@@ -48,13 +48,13 @@ class SwapPainter extends BasicIndicatorPainter {
         if (effect.type == SwapType.yRotation) {
           final piFactor = (dotOffset * math.pi);
           if (i == current) {
-            var x = (1 - ((math.cos(piFactor) + 1) / 2)) * distance;
-            var y = -math.sin(piFactor) * distance / 2;
-            drawDot(xAnchor + distance * i + x, yPos + y, activePaint);
+            var x = (1 - ((math.cos(piFactor) + 1) / 2)) * distance(size);
+            var y = -math.sin(piFactor) * distance(size) / 2;
+            drawDot(xAnchor + distance(size) * i + x, yPos + y, activePaint);
           } else {
-            var x = -(1 - ((math.cos(piFactor) + 1) / 2)) * distance;
-            var y = (math.sin(piFactor) * distance / 2);
-            drawDot(xAnchor + distance * i + x, yPos + y, dotPaint);
+            var x = -(1 - ((math.cos(piFactor) + 1) / 2)) * distance(size);
+            var y = (math.sin(piFactor) * distance(size) / 2);
+            drawDot(xAnchor + distance(size) * i + x, yPos + y, dotPaint);
           }
         } else {
           var posOffset = i.toDouble();
@@ -67,15 +67,17 @@ class SwapPainter extends BasicIndicatorPainter {
           }
           if (i == current) {
             posOffset = offset;
-            drawDot(xAnchor + posOffset * distance, yPos, activePaint, scale);
+            drawDot(
+                xAnchor + posOffset * distance(size), yPos, activePaint, scale);
           } else {
             posOffset = i - dotOffset;
-            drawDot(xAnchor + posOffset * distance, yPos, dotPaint, -scale);
+            drawDot(
+                xAnchor + posOffset * distance(size), yPos, dotPaint, -scale);
           }
         }
       } else {
         // draw still dots
-        final xPos = xAnchor + i * distance;
+        final xPos = xAnchor + i * distance(size);
         drawDot(xPos, yPos, dotPaint);
       }
     }

@@ -38,7 +38,7 @@ class JumpingDotPainter extends BasicIndicatorPainter {
 
       final endDot = calcPortalTravel(
         size,
-        ((count - 1) * distance) + (effect.dotWidth / 2),
+        ((count - 1) * distance(size)) + (effect.dotWidth / 2),
         1 - dotOffset,
       );
       canvas.drawRRect(endDot, activeDotPainter);
@@ -55,8 +55,8 @@ class JumpingDotPainter extends BasicIndicatorPainter {
     }
     final piFactor = (dotOffset * math.pi);
     var yPos = size.height / 2;
-    var xPos = offset.floor() * distance;
-    var x = (1 - ((math.cos(piFactor) + 1) / 2)) * distance;
+    var xPos = offset.floor() * distance(size);
+    var x = (1 - ((math.cos(piFactor) + 1) / 2)) * distance(size);
     var y = -math.sin(piFactor) * effect.verticalOffset;
     xPos += x;
     yPos += y;

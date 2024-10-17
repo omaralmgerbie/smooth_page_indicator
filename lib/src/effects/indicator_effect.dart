@@ -41,6 +41,9 @@ abstract class BasicIndicatorEffect extends IndicatorEffect {
   /// Inactive dots color or all dots in some effects
   final Color dotColor;
 
+  /// Passed dots color
+  final Color? passedDotColor;
+
   /// The active dot color
   final Color activeDotColor;
 
@@ -49,6 +52,9 @@ abstract class BasicIndicatorEffect extends IndicatorEffect {
 
   /// This is ignored if [paintStyle] is PaintStyle.fill
   final double strokeWidth;
+
+  /// Expands the dot to the full width of the parent
+  final bool expand;
 
   /// Default construe
   const BasicIndicatorEffect({
@@ -60,6 +66,8 @@ abstract class BasicIndicatorEffect extends IndicatorEffect {
     required this.dotColor,
     required this.paintStyle,
     required this.activeDotColor,
+    this.passedDotColor,
+    this.expand = false,
   }) : assert(dotWidth >= 0 &&
             dotHeight >= 0 &&
             spacing >= 0 &&

@@ -45,7 +45,7 @@ class TransitionPainter extends BasicIndicatorPainter {
         color = effect.dotColor;
       }
 
-      final xPos = (i * distance);
+      final xPos = (i * distance(size));
       final yPos = size.height / 2;
       final rRect = RRect.fromLTRBR(
         xPos,

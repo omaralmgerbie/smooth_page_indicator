@@ -14,6 +14,7 @@ class SlideEffect extends BasicIndicatorEffect {
   /// Default constructor
   const SlideEffect({
     Color activeDotColor = Colors.indigo,
+    Color? passedDotColor,
     double offset = 16.0,
     double dotWidth = 16.0,
     double dotHeight = 16.0,
@@ -22,16 +23,20 @@ class SlideEffect extends BasicIndicatorEffect {
     Color dotColor = Colors.grey,
     double strokeWidth = 1.0,
     PaintingStyle paintStyle = PaintingStyle.fill,
+    bool expand = false,
     this.type = SlideType.normal,
   }) : super(
-            dotWidth: dotWidth,
-            dotHeight: dotHeight,
-            spacing: spacing,
-            radius: radius,
-            strokeWidth: strokeWidth,
-            paintStyle: paintStyle,
-            dotColor: dotColor,
-            activeDotColor: activeDotColor);
+          dotWidth: dotWidth,
+          dotHeight: dotHeight,
+          spacing: spacing,
+          radius: radius,
+          strokeWidth: strokeWidth,
+          paintStyle: paintStyle,
+          dotColor: dotColor,
+          activeDotColor: activeDotColor,
+          passedDotColor: passedDotColor,
+          expand: expand,
+        );
 
   @override
   IndicatorPainter buildPainter(int count, double offset) {
